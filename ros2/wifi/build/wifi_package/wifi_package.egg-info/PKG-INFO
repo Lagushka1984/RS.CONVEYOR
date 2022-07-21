@@ -1,0 +1,10 @@
+Metadata-Version: 1.2
+Name: wifi-package
+Version: 0.0.0
+Summary: wifi_package using for connect with esp8266
+Home-page: UNKNOWN
+Maintainer: Nikolai Turkin
+Maintainer-email: nikolai.turkin.main@gmail.com
+License: Apache License 2.0
+Description: UNKNOWN
+Platform: UNKNOWN

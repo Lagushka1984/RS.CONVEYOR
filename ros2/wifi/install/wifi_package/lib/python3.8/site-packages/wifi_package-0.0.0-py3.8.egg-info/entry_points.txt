@@ -1,0 +1,3 @@
+[console_scripts]
+wifi_node = wifi_package.wifi_node:main
+

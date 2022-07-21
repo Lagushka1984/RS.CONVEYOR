@@ -1,0 +1,3 @@
+[console_scripts]
+conveyor_node = conveyor_package.conveyor_node:main
+

@@ -1,0 +1,27 @@
+running egg_info
+writing ../../build/wifi_package/wifi_package.egg-info/PKG-INFO
+writing dependency_links to ../../build/wifi_package/wifi_package.egg-info/dependency_links.txt
+writing entry points to ../../build/wifi_package/wifi_package.egg-info/entry_points.txt
+writing requirements to ../../build/wifi_package/wifi_package.egg-info/requires.txt
+writing top-level names to ../../build/wifi_package/wifi_package.egg-info/top_level.txt
+reading manifest file '../../build/wifi_package/wifi_package.egg-info/SOURCES.txt'
+writing manifest file '../../build/wifi_package/wifi_package.egg-info/SOURCES.txt'
+running build
+running build_py
+copying wifi_package/wifi_node.py -> /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/build/lib/wifi_package
+copying wifi_package/node2.py -> /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/build/lib/wifi_package
+running install
+running install_lib
+copying /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/build/lib/wifi_package/wifi_node.py -> /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package
+copying /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/build/lib/wifi_package/node2.py -> /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package
+byte-compiling /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package/wifi_node.py to wifi_node.cpython-38.pyc
+byte-compiling /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package/node2.py to node2.cpython-38.pyc
+running install_data
+copying package.xml -> /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/share/wifi_package
+running install_egg_info
+removing '/home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../../build/wifi_package/wifi_package.egg-info to /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package-0.0.0-py3.8.egg-info
+running install_scripts
+Installing node2 script to /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/wifi_package
+Installing wifi_node script to /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/wifi_package
+writing list of installed files to '/home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/install.log'

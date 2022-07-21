@@ -1,0 +1,24 @@
+[0.656s] Invoking command in '/home/lagushka/KWORK/conveyor/ros2/motor/src/motor_package': PYTHONPATH=/home/lagushka/KWORK/conveyor/ros2/motor/install/motor_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/motor_package build --build-base /home/lagushka/KWORK/conveyor/ros2/motor/build/motor_package/build install --prefix /home/lagushka/KWORK/conveyor/ros2/motor/install/motor_package --record /home/lagushka/KWORK/conveyor/ros2/motor/build/motor_package/install.log --single-version-externally-managed
+[0.882s] running egg_info
+[0.882s] writing ../../build/motor_package/motor_package.egg-info/PKG-INFO
+[0.883s] writing dependency_links to ../../build/motor_package/motor_package.egg-info/dependency_links.txt
+[0.883s] writing entry points to ../../build/motor_package/motor_package.egg-info/entry_points.txt
+[0.883s] writing requirements to ../../build/motor_package/motor_package.egg-info/requires.txt
+[0.883s] writing top-level names to ../../build/motor_package/motor_package.egg-info/top_level.txt
+[0.919s] reading manifest file '../../build/motor_package/motor_package.egg-info/SOURCES.txt'
+[0.920s] writing manifest file '../../build/motor_package/motor_package.egg-info/SOURCES.txt'
+[0.920s] running build
+[0.920s] running build_py
+[0.920s] copying motor_package/motor_node.py -> /home/lagushka/KWORK/conveyor/ros2/motor/build/motor_package/build/lib/motor_package
+[0.920s] running install
+[0.921s] running install_lib
+[0.922s] copying /home/lagushka/KWORK/conveyor/ros2/motor/build/motor_package/build/lib/motor_package/motor_node.py -> /home/lagushka/KWORK/conveyor/ros2/motor/install/motor_package/lib/python3.8/site-packages/motor_package
+[0.923s] byte-compiling /home/lagushka/KWORK/conveyor/ros2/motor/install/motor_package/lib/python3.8/site-packages/motor_package/motor_node.py to motor_node.cpython-38.pyc
+[0.925s] running install_data
+[0.925s] running install_egg_info
+[0.927s] removing '/home/lagushka/KWORK/conveyor/ros2/motor/install/motor_package/lib/python3.8/site-packages/motor_package-0.0.0-py3.8.egg-info' (and everything under it)
+[0.927s] Copying ../../build/motor_package/motor_package.egg-info to /home/lagushka/KWORK/conveyor/ros2/motor/install/motor_package/lib/python3.8/site-packages/motor_package-0.0.0-py3.8.egg-info
+[0.928s] running install_scripts
+[0.946s] Installing motor_node script to /home/lagushka/KWORK/conveyor/ros2/motor/install/motor_package/lib/motor_package
+[0.946s] writing list of installed files to '/home/lagushka/KWORK/conveyor/ros2/motor/build/motor_package/install.log'
+[0.970s] Invoked command in '/home/lagushka/KWORK/conveyor/ros2/motor/src/motor_package' returned '0': PYTHONPATH=/home/lagushka/KWORK/conveyor/ros2/motor/install/motor_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/motor_package build --build-base /home/lagushka/KWORK/conveyor/ros2/motor/build/motor_package/build install --prefix /home/lagushka/KWORK/conveyor/ros2/motor/install/motor_package --record /home/lagushka/KWORK/conveyor/ros2/motor/build/motor_package/install.log --single-version-externally-managed

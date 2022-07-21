@@ -1,0 +1,24 @@
+[0.636s] Invoking command in '/home/lagushka/KWORK/conveyor/ros2/wifi/src/wifi_package': PYTHONPATH=/home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/wifi_package build --build-base /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/build install --prefix /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package --record /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/install.log --single-version-externally-managed
+[0.859s] running egg_info
+[0.859s] writing ../../build/wifi_package/wifi_package.egg-info/PKG-INFO
+[0.860s] writing dependency_links to ../../build/wifi_package/wifi_package.egg-info/dependency_links.txt
+[0.860s] writing entry points to ../../build/wifi_package/wifi_package.egg-info/entry_points.txt
+[0.860s] writing requirements to ../../build/wifi_package/wifi_package.egg-info/requires.txt
+[0.860s] writing top-level names to ../../build/wifi_package/wifi_package.egg-info/top_level.txt
+[0.894s] reading manifest file '../../build/wifi_package/wifi_package.egg-info/SOURCES.txt'
+[0.895s] writing manifest file '../../build/wifi_package/wifi_package.egg-info/SOURCES.txt'
+[0.895s] running build
+[0.895s] running build_py
+[0.896s] copying wifi_package/wifi_node.py -> /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/build/lib/wifi_package
+[0.896s] running install
+[0.896s] running install_lib
+[0.897s] copying /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/build/lib/wifi_package/wifi_node.py -> /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package
+[0.898s] byte-compiling /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package/wifi_node.py to wifi_node.cpython-38.pyc
+[0.899s] running install_data
+[0.900s] running install_egg_info
+[0.901s] removing '/home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package-0.0.0-py3.8.egg-info' (and everything under it)
+[0.901s] Copying ../../build/wifi_package/wifi_package.egg-info to /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages/wifi_package-0.0.0-py3.8.egg-info
+[0.902s] running install_scripts
+[0.925s] Installing wifi_node script to /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/wifi_package
+[0.926s] writing list of installed files to '/home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/install.log'
+[0.953s] Invoked command in '/home/lagushka/KWORK/conveyor/ros2/wifi/src/wifi_package' returned '0': PYTHONPATH=/home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/wifi_package build --build-base /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/build install --prefix /home/lagushka/KWORK/conveyor/ros2/wifi/install/wifi_package --record /home/lagushka/KWORK/conveyor/ros2/wifi/build/wifi_package/install.log --single-version-externally-managed
