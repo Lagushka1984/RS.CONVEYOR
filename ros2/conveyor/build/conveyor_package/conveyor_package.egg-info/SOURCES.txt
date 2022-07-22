@@ -10,6 +10,7 @@ setup.py
 ../../build/conveyor_package/conveyor_package.egg-info/zip-safe
 conveyor_package/__init__.py
 conveyor_package/conveyor_node.py
+conveyor_package/conveyor_node_term.py
 conveyor_package/test.py
 resource/conveyor_package
 test/test_copyright.py
