@@ -171,7 +171,7 @@ class OpenCV:
 def main(camera=False):
     rclpy.init()
     points = [190, 410, 250, 430]
-    path = '/home/lagushka/KWORK/conveyor/ros2/opencv/src/opencv_package/opencv_package/objects.json'
+    path = '/home/ubuntu/conveyor/ros2/opencv/src/opencv_package/opencv_package/objects.json'
     print(path)
     opencv = OpenCV(path)
     opencvNode = OpenCVNode()
@@ -192,7 +192,7 @@ def main(camera=False):
         capture.release()
     if not camera:
         number = 10
-        img = cv2.imread(f'/home/lagushka/KWORK/conveyor/ros2/opencv/src/opencv_package/opencv_package/{number}.jpg')
+        img = cv2.imread(f'/home/ubuntu/conveyor/ros2/opencv/src/opencv_package/opencv_package/objects/{number}.jpg')
         buffer, name = opencv.collectObject(img[points[0]:points[1], points[2]:points[3]], debug=False,
                                             points=points)
         cv2.rectangle(img, (points[2], points[0]), (points[3], points[1]), (0, 0, 255), 2)
