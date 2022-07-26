@@ -3,6 +3,7 @@ import sys
 from rclpy.node import Node
 from std_msgs.msg import String
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QSlider, QLabel
+from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 
 
@@ -27,22 +28,14 @@ class GUI(QWidget):
         self.params = ConveyorNode()
         self.initUI()
 
-    def initUI(self):
-        self.setGeometry(300, 300, 640, 480)
+    def initUI(self) -> None:
+        self.setGeometry(300, 300, 520, 200)
         self.setWindowTitle('Conveyor')
-
-        sendButton = QPushButton('Send', self)
-        sendButton.clicked.connect(self.sendPacket)
-        sendButton.resize(100, 50)
-        sendButton.move(500, 400)
-
-        self.packetLabel = QLabel(f'Last package sent: {self.lastPacket}             ', self)
-        self.packetLabel.move(50, 400)
-
-        self.speedBlock(180, 300)
+        self.speedBlock(120, 60)
+        self.sendBlock(30, 120)
         self.show()
 
-    def speedBlock(self, x, y):
+    def speedBlock(self, x: int, y: int) -> None:
         slider = QSlider(Qt.Horizontal, self)
         slider.setGeometry(x + 20, y - 5, 300, 30)
         slider.setMinimum(0)
@@ -68,25 +61,36 @@ class GUI(QWidget):
 
         directionButton = QPushButton('Change \n direction', self)
         directionButton.clicked.connect(self.setDirection)
-        directionButton.resize(80, 80)
+        directionButton.resize(100, 80)
         directionButton.move(x - 90, y - 30)
 
-    def sendPacket(self):
+    def sendBlock(self, x: int, y: int) -> None:
+        sendButton = QPushButton('Send', self)
+        sendButton.clicked.connect(self.sendPacket)
+        sendButton.resize(100, 50)
+        sendButton.move(x, y)
+
+        self.packetLabel = QLabel(f'Last package sent: {self.lastPacket}             ', self)
+        self.packetLabel.move(x + 120, y + 14)
+        self.packetLabel.setFont(QFont('Ubuntu', 14))
+
+    def sendPacket(self) -> None:
         self.lastPacket = f'M {self.direction} {str(self.speed)}'
         self.params.setMotorParameters(f'{self.direction} {str(self.speed)}')
         self.packetLabel.setText(f'Last package sent: {self.lastPacket}')
 
-    def setSpeed(self, value):
+    def setSpeed(self, value: str) -> None:
         self.speed = value
         self.currentLabel.setText(str(value))
 
-    def setDirection(self):
+    def setDirection(self) -> None:
         if self.direction == 'F':
             self.direction = 'B'
             self.directionLabel.setText('BACKWARD')
         elif self.direction == 'B':
             self.direction = 'F'
             self.directionLabel.setText('FORWARD')
+
 
 def main():
     rclpy.init()

@@ -1,0 +1,24 @@
+[0.665s] Invoking command in '/home/lagushka/KWORK/conveyor/ros2/conveyor/src/conveyor_package': PYTHONPATH=/home/lagushka/KWORK/conveyor/ros2/conveyor/install/conveyor_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/conveyor_package build --build-base /home/lagushka/KWORK/conveyor/ros2/conveyor/build/conveyor_package/build install --prefix /home/lagushka/KWORK/conveyor/ros2/conveyor/install/conveyor_package --record /home/lagushka/KWORK/conveyor/ros2/conveyor/build/conveyor_package/install.log --single-version-externally-managed
+[0.896s] running egg_info
+[0.897s] writing ../../build/conveyor_package/conveyor_package.egg-info/PKG-INFO
+[0.897s] writing dependency_links to ../../build/conveyor_package/conveyor_package.egg-info/dependency_links.txt
+[0.897s] writing entry points to ../../build/conveyor_package/conveyor_package.egg-info/entry_points.txt
+[0.897s] writing requirements to ../../build/conveyor_package/conveyor_package.egg-info/requires.txt
+[0.897s] writing top-level names to ../../build/conveyor_package/conveyor_package.egg-info/top_level.txt
+[0.933s] reading manifest file '../../build/conveyor_package/conveyor_package.egg-info/SOURCES.txt'
+[0.934s] writing manifest file '../../build/conveyor_package/conveyor_package.egg-info/SOURCES.txt'
+[0.934s] running build
+[0.934s] running build_py
+[0.934s] copying conveyor_package/conveyor_node.py -> /home/lagushka/KWORK/conveyor/ros2/conveyor/build/conveyor_package/build/lib/conveyor_package
+[0.934s] running install
+[0.935s] running install_lib
+[0.936s] copying /home/lagushka/KWORK/conveyor/ros2/conveyor/build/conveyor_package/build/lib/conveyor_package/conveyor_node.py -> /home/lagushka/KWORK/conveyor/ros2/conveyor/install/conveyor_package/lib/python3.8/site-packages/conveyor_package
+[0.937s] byte-compiling /home/lagushka/KWORK/conveyor/ros2/conveyor/install/conveyor_package/lib/python3.8/site-packages/conveyor_package/conveyor_node.py to conveyor_node.cpython-38.pyc
+[0.939s] running install_data
+[0.939s] running install_egg_info
+[0.941s] removing '/home/lagushka/KWORK/conveyor/ros2/conveyor/install/conveyor_package/lib/python3.8/site-packages/conveyor_package-0.0.0-py3.8.egg-info' (and everything under it)
+[0.941s] Copying ../../build/conveyor_package/conveyor_package.egg-info to /home/lagushka/KWORK/conveyor/ros2/conveyor/install/conveyor_package/lib/python3.8/site-packages/conveyor_package-0.0.0-py3.8.egg-info
+[0.942s] running install_scripts
+[0.960s] Installing conveyor_node script to /home/lagushka/KWORK/conveyor/ros2/conveyor/install/conveyor_package/lib/conveyor_package
+[0.961s] writing list of installed files to '/home/lagushka/KWORK/conveyor/ros2/conveyor/build/conveyor_package/install.log'
+[0.985s] Invoked command in '/home/lagushka/KWORK/conveyor/ros2/conveyor/src/conveyor_package' returned '0': PYTHONPATH=/home/lagushka/KWORK/conveyor/ros2/conveyor/install/conveyor_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/conveyor_package build --build-base /home/lagushka/KWORK/conveyor/ros2/conveyor/build/conveyor_package/build install --prefix /home/lagushka/KWORK/conveyor/ros2/conveyor/install/conveyor_package --record /home/lagushka/KWORK/conveyor/ros2/conveyor/build/conveyor_package/install.log --single-version-externally-managed
