@@ -4,7 +4,6 @@ import numpy as np
 from numpy import ndarray
 from sklearn.cluster import KMeans
 import json
-import os
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
