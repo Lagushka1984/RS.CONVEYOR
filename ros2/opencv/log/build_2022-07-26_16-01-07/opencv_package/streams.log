@@ -1,0 +1,21 @@
+[0.700s] Invoking command in '/home/lagushka/KWORK/conveyor/ros2/opencv/src/opencv_package': PYTHONPATH=/home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/opencv_package build --build-base /home/lagushka/KWORK/conveyor/ros2/opencv/build/opencv_package/build install --prefix /home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package --record /home/lagushka/KWORK/conveyor/ros2/opencv/build/opencv_package/install.log --single-version-externally-managed
+[0.952s] running egg_info
+[0.953s] writing ../../build/opencv_package/opencv_package.egg-info/PKG-INFO
+[0.953s] writing dependency_links to ../../build/opencv_package/opencv_package.egg-info/dependency_links.txt
+[0.953s] writing entry points to ../../build/opencv_package/opencv_package.egg-info/entry_points.txt
+[0.953s] writing requirements to ../../build/opencv_package/opencv_package.egg-info/requires.txt
+[0.953s] writing top-level names to ../../build/opencv_package/opencv_package.egg-info/top_level.txt
+[0.994s] reading manifest file '../../build/opencv_package/opencv_package.egg-info/SOURCES.txt'
+[0.995s] writing manifest file '../../build/opencv_package/opencv_package.egg-info/SOURCES.txt'
+[0.995s] running build
+[0.995s] running build_py
+[0.996s] running install
+[0.996s] running install_lib
+[0.998s] running install_data
+[0.999s] running install_egg_info
+[1.000s] removing '/home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package/lib/python3.8/site-packages/opencv_package-0.0.0-py3.8.egg-info' (and everything under it)
+[1.001s] Copying ../../build/opencv_package/opencv_package.egg-info to /home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package/lib/python3.8/site-packages/opencv_package-0.0.0-py3.8.egg-info
+[1.002s] running install_scripts
+[1.022s] Installing opencv_node script to /home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package/lib/opencv_package
+[1.022s] writing list of installed files to '/home/lagushka/KWORK/conveyor/ros2/opencv/build/opencv_package/install.log'
+[1.047s] Invoked command in '/home/lagushka/KWORK/conveyor/ros2/opencv/src/opencv_package' returned '0': PYTHONPATH=/home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/opencv_package build --build-base /home/lagushka/KWORK/conveyor/ros2/opencv/build/opencv_package/build install --prefix /home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package --record /home/lagushka/KWORK/conveyor/ros2/opencv/build/opencv_package/install.log --single-version-externally-managed

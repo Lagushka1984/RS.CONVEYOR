@@ -1,0 +1,3 @@
+[console_scripts]
+opencv_node = opencv_package.opencv_node:main
+

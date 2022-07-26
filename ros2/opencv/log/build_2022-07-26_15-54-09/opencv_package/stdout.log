@@ -1,0 +1,21 @@
+running egg_info
+writing ../../build/opencv_package/opencv_package.egg-info/PKG-INFO
+writing dependency_links to ../../build/opencv_package/opencv_package.egg-info/dependency_links.txt
+writing entry points to ../../build/opencv_package/opencv_package.egg-info/entry_points.txt
+writing requirements to ../../build/opencv_package/opencv_package.egg-info/requires.txt
+writing top-level names to ../../build/opencv_package/opencv_package.egg-info/top_level.txt
+reading manifest file '../../build/opencv_package/opencv_package.egg-info/SOURCES.txt'
+writing manifest file '../../build/opencv_package/opencv_package.egg-info/SOURCES.txt'
+running build
+running build_py
+copying opencv_package/opencv_node.py -> /home/lagushka/KWORK/conveyor/ros2/opencv/build/opencv_package/build/lib/opencv_package
+running install
+running install_lib
+copying /home/lagushka/KWORK/conveyor/ros2/opencv/build/opencv_package/build/lib/opencv_package/opencv_node.py -> /home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package/lib/python3.8/site-packages/opencv_package
+byte-compiling /home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package/lib/python3.8/site-packages/opencv_package/opencv_node.py to opencv_node.cpython-38.pyc
+running install_data
+running install_egg_info
+removing '/home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package/lib/python3.8/site-packages/opencv_package-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../../build/opencv_package/opencv_package.egg-info to /home/lagushka/KWORK/conveyor/ros2/opencv/install/opencv_package/lib/python3.8/site-packages/opencv_package-0.0.0-py3.8.egg-info
+running install_scripts
+writing list of installed files to '/home/lagushka/KWORK/conveyor/ros2/opencv/build/opencv_package/install.log'

@@ -71,12 +71,6 @@ class GUI(QWidget):
         directionButton.resize(100, 80)
         directionButton.move(x - 90, y - 30)
 
-    def updateOpenCV(self, name: str) -> None:
-        self.objectLabel.setText(f'Current object: {name}            ')
-
-    def opencvBlock(self, x: int, y: int) -> None:
-        self.objectLabel = QLabel('Current object: unknown            ', self)
-
     def sendBlock(self, x: int, y: int) -> None:
         sendButton = QPushButton('Send', self)
         sendButton.clicked.connect(self.sendPacket)
