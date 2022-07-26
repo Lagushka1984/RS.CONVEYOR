@@ -167,7 +167,7 @@ class OpenCV:
         return color.astype(int)
 
 
-def main(camera=True):
+def main(camera):
     rclpy.init()
     points = [190, 410, 250, 430]
     path = '/home/ubuntu/conveyor/ros2/opencv/src/opencv_package/opencv_package/objects.json'
@@ -205,4 +205,4 @@ def main(camera=True):
 
 
 if __name__ == '__main__':
-    main(camera=True)
+    main(True)
