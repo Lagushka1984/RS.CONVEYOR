@@ -8,14 +8,21 @@ from PyQt5.QtCore import Qt
 
 
 class ConveyorNode(Node):
+    objectName: str = 'None'
+
     def __init__(self) -> None:
         super().__init__('controller')
         self.pubMotor = self.create_publisher(String, 'motor_line', 10)
+        self.subOpenCV = self.create_subscription(String, 'opencv_line', self.listener_callback, 10)
+        self.subOpenCV
 
     def setMotorParameters(self, motor_param: str) -> None:
         msg = String()
         msg.data = motor_param
         self.pubMotor.publish(msg)
+
+    def listener_callback(self, msg) -> None:
+        self.objectName = msg.data
 
 
 class GUI(QWidget):
@@ -63,6 +70,12 @@ class GUI(QWidget):
         directionButton.clicked.connect(self.setDirection)
         directionButton.resize(100, 80)
         directionButton.move(x - 90, y - 30)
+
+    def updateOpenCV(self, name: str) -> None:
+        self.objectLabel.setText(f'Current object: {name}            ')
+
+    def opencvBlock(self, x: int, y: int) -> None:
+        self.objectLabel = QLabel('Current object: unknown            ', self)
 
     def sendBlock(self, x: int, y: int) -> None:
         sendButton = QPushButton('Send', self)

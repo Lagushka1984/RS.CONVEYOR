@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'opencv_node = opencv_package.opencv_node:main',
         ],
     },
 )

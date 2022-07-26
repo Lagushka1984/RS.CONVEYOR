@@ -1,9 +1,27 @@
-from typing import Tuple
+from typing import Tuple, Union
 import cv2
 import numpy as np
 from numpy import ndarray
 from sklearn.cluster import KMeans
 import json
+import os
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String
+
+
+class OpenCVNode(Node):
+    objectName: str = 'None'
+
+    def __init__(self) -> None:
+        super().__init__('opencv')
+        self.pub = self.create_publisher(String, 'opencv_line', 10)
+
+    def sendName(self, name: str) -> None:
+        msg = String()
+        msg.data = name
+        self.pub.publish(msg)
+        self.get_logger().info(f'Sent: {msg.data}')
 
 
 class OpenCV:
@@ -39,22 +57,25 @@ class OpenCV:
                 if h > 20 or w > 20:
                     return box, rect
 
-    def collectObject(self, img: np.ndarray, debug=False, points=None) -> Tuple[ndarray, str]:
-        bg = self.bgRemove(img)
-        box, rect = self.findRect(bg)
-        rotated = self.rotateAndCutImage(img, rect)
-        width = int(rect[1][0])
-        height = int(rect[1][1])
-        surface = width * height
-        color = self.averageColor(rotated)
-        params = {'width': width,
-                  'height': height,
-                  'surface': surface,
-                  'average_color': color}
-        name = self.compareObjects(params)
-        if debug:
-            print(name, params)
-        return self.convertBox(box, points=points), name
+    def collectObject(self, img: np.ndarray, debug=False, points=None) -> Union[Tuple[ndarray, str], Tuple[str, str]]:
+        try:
+            bg = self.bgRemove(img)
+            box, rect = self.findRect(bg)
+            rotated = self.rotateAndCutImage(img, rect)
+            width = int(rect[1][0])
+            height = int(rect[1][1])
+            surface = width * height
+            color = self.averageColor(rotated)
+            params = {'width': width,
+                      'height': height,
+                      'surface': surface,
+                      'average_color': color}
+            name = self.compareObjects(params)
+            if debug:
+                print(name, params)
+            return self.convertBox(box, points=points), name
+        except:
+            return 'error', 'not found'
 
     def compareObjects(self, params: dict) -> str:
         rParams = int(params['average_color'][0])
@@ -64,19 +85,20 @@ class OpenCV:
         width = min(size)
         height = max(size)
         surface = params['surface']
-        for object in self.objects['objects']:
-            error = abs(object['width'] - width)
+        for obj in self.objects['objects']:
+            error = abs(obj['width'] - width)
             if error > self.sizeError:
                 continue
-            error = abs(object['height'] - height)
+            error = abs(obj['height'] - height)
             if error > self.sizeError:
                 continue
             # error = abs(object['surface'] - surface)
             # if error > self.surfaceError:
             #    continue
-            rObject = eval(object['average_color'])[0]
-            gObject = eval(object['average_color'])[1]
-            bObject = eval(object['average_color'])[2]
+            colorObject = eval(obj['average_color'])
+            rObject = colorObject[0]
+            gObject = colorObject[1]
+            bObject = colorObject[2]
             error = abs(rObject - rParams)
             if error > self.colorError:
                 continue
@@ -86,7 +108,7 @@ class OpenCV:
             error = abs(bObject - bParams)
             if error > self.colorError:
                 continue
-            return object['name']
+            return obj['name']
         return 'unknown'
 
     def rotateObject(self, img: np.ndarray) -> np.ndarray:
@@ -146,20 +168,40 @@ class OpenCV:
         return color.astype(int)
 
 
-def main():
+def main(camera=False):
+    rclpy.init()
     points = [190, 410, 250, 430]
-    amount = 13
-    path = 'objects.json'
+    path = '/home/lagushka/KWORK/conveyor/ros2/opencv/src/opencv_package/opencv_package/objects.json'
+    print(path)
     opencv = OpenCV(path)
-    for i in range(amount):
-        img = cv2.imread(f'{i}.jpg')
+    opencvNode = OpenCVNode()
+    if camera:
+        capture = capture = cv2.VideoCapture(0)
+        while capture.isOpened:
+            _, img = capture.read()
+            buffer, name = opencv.collectObject(img[points[0]:points[1], points[2]:points[3]], debug=False,
+                                                points=points)
+            if buffer != 'error':
+                cv2.rectangle(img, (points[2], points[0]), (points[3], points[1]), (0, 0, 255), 2)
+                img = cv2.polylines(img, [buffer], True, (255, 0, 0), 2)
+            opencvNode.sendName(name)
+            cv2.imshow('frame', img)
+            if cv2.getWindowProperty('frame', cv2.WND_PROP_VISIBLE) < 1:
+                break
+            cv2.waitKey(1)
+        capture.release()
+    if not camera:
+        number = 10
+        img = cv2.imread(f'/home/lagushka/KWORK/conveyor/ros2/opencv/src/opencv_package/opencv_package/{number}.jpg')
         buffer, name = opencv.collectObject(img[points[0]:points[1], points[2]:points[3]], debug=False,
                                             points=points)
         cv2.rectangle(img, (points[2], points[0]), (points[3], points[1]), (0, 0, 255), 2)
         img = cv2.polylines(img, [buffer], True, (255, 0, 0), 2)
-        cv2.imshow(f'{name} / {i}.jpg', img)
-    cv2.waitKey(500000)
+        opencvNode.sendName(name)
+        cv2.imshow(f'{name} / {number}.jpg', img)
+        while not cv2.getWindowProperty(f'{name} / {number}.jpg', cv2.WND_PROP_VISIBLE) < 1:
+            cv2.waitKey(1)
 
 
 if __name__ == '__main__':
-    main()
+    main(camera=True)

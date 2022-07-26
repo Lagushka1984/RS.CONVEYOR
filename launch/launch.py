@@ -18,5 +18,10 @@ def generate_launch_description():
             package='conveyor_package',
             executable='conveyor_node',
             name='conveyor',
+        ),
+        Node(
+            package='opencv_package',
+            executable='opencv_node',
+            name='opencv',
         )
     ])
