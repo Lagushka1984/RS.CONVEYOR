@@ -190,7 +190,7 @@ def main(camera=True):
                 break
             cv2.waitKey(1)
         capture.release()
-    if not camera:
+    else:
         number = 8
         img = cv2.imread(f'/home/ubuntu/conveyor/ros2/opencv/src/opencv_package/opencv_package/{number}.jpg')
         buffer, name = opencv.collectObject(img[points[0]:points[1], points[2]:points[3]], debug=False,
