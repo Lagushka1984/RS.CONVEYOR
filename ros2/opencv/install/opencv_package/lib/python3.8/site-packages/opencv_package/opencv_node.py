@@ -7,26 +7,29 @@ import json
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel
-from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt
 
 
 class OpenCVNode(Node):
     objectName: str = 'None'
-    newObjectName: str = ''
-    updateObject: bool = False
 
     def __init__(self) -> None:
         super().__init__('opencv')
         self.pub = self.create_publisher(String, 'opencv_line', 10)
-        self.sub = self.create_subscription(String, 'opencv_line2', self.listener_callback, 10)
-        self.sub
 
     def sendName(self, name: str) -> None:
         msg = String()
         msg.data = name
         self.pub.publish(msg)
+
+
+class ObjectsNode(Node):
+    newObjectName: str = ''
+    updateObject: bool = False
+
+    def __init__(self) -> None:
+        super().__init__('objects')
+        self.sub = self.create_subscription(String, 'objects_line', self.listener_callback, 10)
+        self.sub
 
     def listener_callback(self, msg) -> None:
         self.newObjectName = msg.data
@@ -38,11 +41,11 @@ class OpenCV:
     bins: np.ndarray = [0, 51, 102, 153, 204, 255]
     blrs: int = 20
     sizeError: int = 10
-    surfaceError: int = 100
-    colorError: int = 7
+    surfaceError: int = 500
+    colorError: int = 10
     params: dict
 
-    def __init__(self, path) -> None:
+    def __init__(self, path: str) -> None:
         self.path = path
         with open(self.path) as file:
             self.objects = json.load(file)
@@ -50,9 +53,8 @@ class OpenCV:
     def updateObject(self, name: str) -> None:
         self.params['name'] = name
         self.objects['objects'].append(self.params)
-        with open(self.path, 'w') as file:
-            file.write(self.objects)
-        print(self.objects)
+        with open(self.path, 'w+') as file:
+            json.dump(self.objects, file)
 
     def reopenFile(self) -> None:
         with open(self.path) as file:
@@ -90,11 +92,11 @@ class OpenCV:
             height = int(rect[1][1])
             surface = width * height
             color = self.averageColor(rotated)
-            self.params = {'name' : '',
-                           'width': width,
-                           'height': height,
+            self.params = {'name': '',
+                           'width': min(width, height),
+                           'height': max(width, height),
                            'surface': surface,
-                           'average_color': color}
+                           'average_color': f'({color[0]}, {color[1]}, {color[2]})'}
             name = self.compareObjects(self.params)
             if debug:
                 print(name, self.params)
@@ -103,9 +105,10 @@ class OpenCV:
             return 'error', 'not found'
 
     def compareObjects(self, params: dict) -> str:
-        rParams = int(params['average_color'][0])
-        gParams = int(params['average_color'][1])
-        bParams = int(params['average_color'][2])
+        colorParams = eval(params['average_color'])
+        rParams = colorParams[0]
+        gParams = colorParams[1]
+        bParams = colorParams[2]
         size = (params['width'], params['height'])
         width = min(size)
         height = max(size)
@@ -183,14 +186,13 @@ def main(camera=True):
     points = [190, 410, 250, 430]
     path = '/home/lagushka/KWORK/conveyor/ros2/opencv/src/opencv_package/opencv_package/'
     opencv = OpenCV(f'{path}objects.json')
-
     opencvNode = OpenCVNode()
-    lastName = ''
-
+    objectsNode = ObjectsNode()
     if camera:
-        capture = capture = cv2.VideoCapture(0)
+        capture = capture = cv2.VideoCapture(1)
         while capture.isOpened:
-            _, img = capture.read()
+            #_, img = capture.read()
+            img = cv2.imread(f'{path}1.jpg')
             buffer, name = opencv.collectObject(img[points[0]:points[1], points[2]:points[3]], debug=False,
                                                 points=points)
             if buffer != 'error':
@@ -198,13 +200,14 @@ def main(camera=True):
                 img = cv2.polylines(img, [buffer], True, (255, 255, 0), 2)
             img = cv2.putText(img, name, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
             opencvNode.sendName(name)
-            if opencvNode.updateObject:
-                opencv.updateObject(opencvNode.newObjectName)
-                opencvNode.updateObject = False
+            if objectsNode.updateObject:
+                opencv.updateObject(objectsNode.newObjectName)
+                objectsNode.updateObject = False
             cv2.imshow('frame', img)
             if cv2.getWindowProperty('frame', cv2.WND_PROP_VISIBLE) < 1:
                 break
             cv2.waitKey(1)
+            rclpy.spin_once(objectsNode, timeout_sec=0.01)
         capture.release()
     else:
         number = 8
