@@ -25,7 +25,7 @@ class WifiNode(Node):
         super().__init__('server')
         self.sub = self.create_subscription(String, 'udp', self.listener_callback, 10)
 
-        self.host = '10.42.0.169'
+        self.host = '192.168.0.200'
         self.port = 4444
         self.server = UDP(self.host, self.port)
 

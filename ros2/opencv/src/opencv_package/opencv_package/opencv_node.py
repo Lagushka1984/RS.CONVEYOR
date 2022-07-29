@@ -41,8 +41,8 @@ class OpenCV:
     bins: np.ndarray = [0, 51, 102, 153, 204, 255]
     blrs: int = 20
     sizeError: int = 10
-    surfaceError: int = 100
-    colorError: int = 7
+    surfaceError: int = 500
+    colorError: int = 10
     params: dict
 
     def __init__(self, path: str) -> None:
@@ -53,7 +53,6 @@ class OpenCV:
     def updateObject(self, name: str) -> None:
         self.params['name'] = name
         self.objects['objects'].append(self.params)
-        print(self.objects)
         with open(self.path, 'w+') as file:
             json.dump(self.objects, file)
 
