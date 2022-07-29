@@ -136,7 +136,6 @@ class OpenCV:
             error = abs(bObject - bParams)
             if error > self.colorError:
                 continue
-            print(obj['name'])
             return obj['name']
         return 'unknown'
 

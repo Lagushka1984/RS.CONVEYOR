@@ -13,7 +13,7 @@ class ConveyorNode(Node):
     def __init__(self) -> None:
         super().__init__('controller')
         self.pubMotor = self.create_publisher(String, 'motor_line', 10)
-        self.pubOpenCV = self.create_publisher(String, 'opencv_line2', 10)
+        self.pubOpenCV = self.create_publisher(String, 'objects_line', 10)
         self.subOpenCV = self.create_subscription(String, 'opencv_line', self.listener_callback, 10)
         self.subOpenCV
 
@@ -21,6 +21,7 @@ class ConveyorNode(Node):
         msg = String()
         msg.data = object_name
         self.pubOpenCV.publish(msg)
+        self.get_logger().info(f'Sent: {msg.data}')
 
     def setMotorParameters(self, motor_param: str) -> None:
         msg = String()
