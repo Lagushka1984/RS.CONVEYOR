@@ -2,7 +2,7 @@ import rclpy
 import sys
 from rclpy.node import Node
 from std_msgs.msg import String
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QSlider, QLabel
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QSlider, QLabel, QLineEdit
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 
@@ -13,8 +13,15 @@ class ConveyorNode(Node):
     def __init__(self) -> None:
         super().__init__('controller')
         self.pubMotor = self.create_publisher(String, 'motor_line', 10)
+        self.pubOpenCV = self.create_publisher(String, 'objects_line', 10)
         self.subOpenCV = self.create_subscription(String, 'opencv_line', self.listener_callback, 10)
         self.subOpenCV
+
+    def createNewObject(self, object_name: str) -> None:
+        msg = String()
+        msg.data = object_name
+        self.pubOpenCV.publish(msg)
+        self.get_logger().info(f'Sent: {msg.data}')
 
     def setMotorParameters(self, motor_param: str) -> None:
         msg = String()
@@ -36,10 +43,11 @@ class GUI(QWidget):
         self.initUI()
 
     def initUI(self) -> None:
-        self.setGeometry(300, 300, 520, 200)
+        self.setGeometry(600, 600, 520, 260)
         self.setWindowTitle('Conveyor')
         self.speedBlock(120, 60)
         self.sendBlock(30, 120)
+        self.newObject(30, 180)
         self.show()
 
     def speedBlock(self, x: int, y: int) -> None:
@@ -85,6 +93,20 @@ class GUI(QWidget):
         self.lastPacket = f'M {self.direction} {str(self.speed)}'
         self.params.setMotorParameters(f'{self.direction} {str(self.speed)}')
         self.packetLabel.setText(f'Last package sent: {self.lastPacket}')
+
+    def newObject(self, x: int, y: int) -> None:
+        objectButton = QPushButton('Create', self)
+        objectButton.clicked.connect(self.sendObject)
+        objectButton.resize(100, 50)
+        objectButton.move(x, y)
+        self.nameEdit = QLineEdit(self)
+        self.nameEdit.setAlignment(Qt.AlignLeft)
+        self.nameEdit.resize(300, 30)
+        self.nameEdit.setFont(QFont("Ubuntu", 14))
+        self.nameEdit.move(x + 110, y + 10)
+
+    def sendObject(self) -> None:
+        self.params.createNewObject(self.nameEdit.text())
 
     def setSpeed(self, value: str) -> None:
         self.speed = value

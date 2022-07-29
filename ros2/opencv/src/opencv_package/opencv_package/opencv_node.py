@@ -20,7 +20,21 @@ class OpenCVNode(Node):
         msg = String()
         msg.data = name
         self.pub.publish(msg)
-        self.get_logger().info(f'Sent: {msg.data}')
+
+
+class ObjectsNode(Node):
+    newObjectName: str = ''
+    updateObject: bool = False
+
+    def __init__(self) -> None:
+        super().__init__('objects')
+        self.sub = self.create_subscription(String, 'objects_line', self.listener_callback, 10)
+        self.sub
+
+    def listener_callback(self, msg) -> None:
+        self.newObjectName = msg.data
+        self.updateObject = True
+        self.get_logger().info(f'Got: {msg.data}')
 
 
 class OpenCV:
@@ -29,9 +43,23 @@ class OpenCV:
     sizeError: int = 10
     surfaceError: int = 100
     colorError: int = 7
+    params: dict
 
-    def __init__(self, path) -> None:
-        self.objects = json.load(open(path))
+    def __init__(self, path: str) -> None:
+        self.path = path
+        with open(self.path) as file:
+            self.objects = json.load(file)
+
+    def updateObject(self, name: str) -> None:
+        self.params['name'] = name
+        self.objects['objects'].append(self.params)
+        print(self.objects)
+        with open(self.path, 'w+') as file:
+            json.dump(self.objects, file)
+
+    def reopenFile(self) -> None:
+        with open(self.path) as file:
+            self.objects = json.load(file)
 
     def bgRemove(self, img: np.ndarray) -> np.ndarray:
         img = cv2.GaussianBlur(img, (5, 5), 0)
@@ -65,21 +93,23 @@ class OpenCV:
             height = int(rect[1][1])
             surface = width * height
             color = self.averageColor(rotated)
-            params = {'width': width,
-                      'height': height,
-                      'surface': surface,
-                      'average_color': color}
-            name = self.compareObjects(params)
+            self.params = {'name': '',
+                           'width': min(width, height),
+                           'height': max(width, height),
+                           'surface': surface,
+                           'average_color': f'({color[0]}, {color[1]}, {color[2]})'}
+            name = self.compareObjects(self.params)
             if debug:
-                print(name, params)
+                print(name, self.params)
             return self.convertBox(box, points=points), name
         except:
             return 'error', 'not found'
 
     def compareObjects(self, params: dict) -> str:
-        rParams = int(params['average_color'][0])
-        gParams = int(params['average_color'][1])
-        bParams = int(params['average_color'][2])
+        colorParams = eval(params['average_color'])
+        rParams = colorParams[0]
+        gParams = colorParams[1]
+        bParams = colorParams[2]
         size = (params['width'], params['height'])
         width = min(size)
         height = max(size)
@@ -107,26 +137,12 @@ class OpenCV:
             error = abs(bObject - bParams)
             if error > self.colorError:
                 continue
+            print(obj['name'])
             return obj['name']
         return 'unknown'
 
     def rotateObject(self, img: np.ndarray) -> np.ndarray:
         return self.rotateAndCutImage(img, self.findRect(self.bgRemove(img))[1])
-
-    def debug(self, img: np.ndarray, name='default') -> None:
-        bg = self.bgRemove(img)
-        box, rect = self.findRect(bg)
-        width = int(rect[1][0])
-        height = int(rect[1][1])
-        surface = width * height
-        color = self.averageColor(self.rotateObject(img))
-        print()
-        print(f'name : {name}')
-        print(f'width : {width}')
-        print(f'height : {height}')
-        print(f'surface : {surface}')
-        print(f'color : {color}')
-        print()
 
     @staticmethod
     def convertBox(box: np.ndarray, points=None) -> np.ndarray:
@@ -167,17 +183,18 @@ class OpenCV:
         return color.astype(int)
 
 
-def main(camera):
+def main(camera=True):
     rclpy.init()
     points = [190, 410, 250, 430]
-    path = '/home/ubuntu/conveyor/ros2/opencv/src/opencv_package/opencv_package/objects.json'
-    print(path)
-    opencv = OpenCV(path)
+    path = '/home/lagushka/KWORK/conveyor/ros2/opencv/src/opencv_package/opencv_package/'
+    opencv = OpenCV(f'{path}objects.json')
     opencvNode = OpenCVNode()
+    objectsNode = ObjectsNode()
     if camera:
-        capture = capture = cv2.VideoCapture(0)
+        capture = capture = cv2.VideoCapture(1)
         while capture.isOpened:
-            _, img = capture.read()
+            #_, img = capture.read()
+            img = cv2.imread(f'{path}1.jpg')
             buffer, name = opencv.collectObject(img[points[0]:points[1], points[2]:points[3]], debug=False,
                                                 points=points)
             if buffer != 'error':
@@ -185,14 +202,18 @@ def main(camera):
                 img = cv2.polylines(img, [buffer], True, (255, 255, 0), 2)
             img = cv2.putText(img, name, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
             opencvNode.sendName(name)
+            if objectsNode.updateObject:
+                opencv.updateObject(objectsNode.newObjectName)
+                objectsNode.updateObject = False
             cv2.imshow('frame', img)
             if cv2.getWindowProperty('frame', cv2.WND_PROP_VISIBLE) < 1:
                 break
             cv2.waitKey(1)
+            rclpy.spin_once(objectsNode, timeout_sec=0.01)
         capture.release()
     else:
         number = 8
-        img = cv2.imread(f'/home/ubuntu/conveyor/ros2/opencv/src/opencv_package/opencv_package/{number}.jpg')
+        img = cv2.imread(f'{path}{number}.jpg')
         buffer, name = opencv.collectObject(img[points[0]:points[1], points[2]:points[3]], debug=False,
                                             points=points)
         img = cv2.putText(img, name, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2, cv2.LINE_AA)
@@ -205,4 +226,4 @@ def main(camera):
 
 
 if __name__ == '__main__':
-    main(True)
+    main(camera=True)
