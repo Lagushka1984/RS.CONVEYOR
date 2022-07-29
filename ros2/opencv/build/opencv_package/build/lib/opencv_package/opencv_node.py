@@ -184,15 +184,14 @@ class OpenCV:
 def main(camera=True):
     rclpy.init()
     points = [190, 410, 250, 430]
-    path = '/home/lagushka/KWORK/conveyor/ros2/opencv/src/opencv_package/opencv_package/'
+    path = '/home/ubuntu/conveyor/ros2/opencv/src/opencv_package/opencv_package/'
     opencv = OpenCV(f'{path}objects.json')
     opencvNode = OpenCVNode()
     objectsNode = ObjectsNode()
     if camera:
-        capture = capture = cv2.VideoCapture(1)
+        capture = cv2.VideoCapture(0)
         while capture.isOpened:
-            #_, img = capture.read()
-            img = cv2.imread(f'{path}1.jpg')
+            _, img = capture.read()
             buffer, name = opencv.collectObject(img[points[0]:points[1], points[2]:points[3]], debug=False,
                                                 points=points)
             if buffer != 'error':

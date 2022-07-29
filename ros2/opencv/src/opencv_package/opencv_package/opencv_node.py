@@ -189,7 +189,7 @@ def main(camera=True):
     opencvNode = OpenCVNode()
     objectsNode = ObjectsNode()
     if camera:
-        capture = capture = cv2.VideoCapture(0)
+        capture = cv2.VideoCapture(0)
         while capture.isOpened:
             _, img = capture.read()
             buffer, name = opencv.collectObject(img[points[0]:points[1], points[2]:points[3]], debug=False,
